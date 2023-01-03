@@ -1,0 +1,33 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "DemoWebRTC Dev Debug",
+            "program": "lib/main_dev.dart",
+            "request": "launch",
+            "type": "dart",
+            "args": ["--flavor", "dev", "--debug"]
+          },
+          {
+            "name": "DemoWebRTC Dev Release",
+            "program": "lib/main_dev.dart",
+            "request": "launch",
+            "type": "dart",
+            "args": ["--flavor", "dev", "--release"]
+          },
+          {
+            "name": "DemoWebRTC Prod Debug",
+            "program": "lib/main.dart",
+            "request": "launch",
+            "type": "dart",
+            "args": ["--flavor", "prod", "--debug"]
+          },
+          {
+            "name": "DemoWebRTC Prod Release",
+            "program": "lib/main.dart",
+            "request": "launch",
+            "type": "dart",
+            "args": ["--flavor", "prod", "--release"]
+          }        
+    ]
+}
