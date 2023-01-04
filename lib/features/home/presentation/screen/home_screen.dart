@@ -44,8 +44,8 @@ class _Buttons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<HomeBloc>();
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Wrap(
+      // mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton(
           onPressed: () => bloc.add(const HomeEvent.onOffer()),

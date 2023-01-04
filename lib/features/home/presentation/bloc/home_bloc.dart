@@ -96,9 +96,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Future<void> _offerToState(_, Emitter<HomeState> emit) async {
     try {
       final session = await _repository.createOffer();
-      print('==============');
-      print(session);
-      print('==============');
+      log(session);
     } catch (_) {
       print(_);
     }
@@ -107,7 +105,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Future<void> _answerToState(_, Emitter<HomeState> emit) async {
     try {
       final session = await _repository.createAnswer();
-      print(session);
+      log(session);
     } catch (_) {
       print(_);
     }
@@ -115,7 +113,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   Future<void> _descriptionToState(_, Emitter<HomeState> emit) async {
     try {
-      print(value);
+      log(value);
       await _repository.setRemoteDescription(value);
     } catch (_) {
       print(_);

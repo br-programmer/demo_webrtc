@@ -8,7 +8,6 @@ import 'package:demo_webrtc/core/core.dart';
 import 'package:demo_webrtc/features/home/home.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:sdp_transform/sdp_transform.dart';
 
 @Injectable(as: IWebRTCRepository)
 class WebRtcRepository implements IWebRTCRepository {
@@ -64,8 +63,7 @@ class WebRtcRepository implements IWebRTCRepository {
         'audio': true,
         'video': {'facingMode': 'user'}
       };
-      _localStream =
-          await navigator.mediaDevices.getUserMedia(mediaConstraints);
+      _localStream = await navigator.mediaDevices.getUserMedia(mediaConstraints);
       _localVideoRenderer.srcObject = _localStream;
       _addToStream(LocalAudioTracks(_localStream!.getAudioTracks()));
       _addToStream(LocalVideoTracks(_localStream!.getVideoTracks()));
@@ -116,7 +114,8 @@ class WebRtcRepository implements IWebRTCRepository {
   Future<RTCPeerConnection> _createPeerConnection() async {
     final peerConnection = await createPeerConnection(
       _configuration,
-      _offerSdpConstraints,
+      // _offerSdpConstraints,
+      _loopbackConstraints,
     );
     await peerConnection.addStream(await _getUserMedia());
     peerConnection
@@ -127,29 +126,33 @@ class WebRtcRepository implements IWebRTCRepository {
   }
 
   @override
-  Future<Map<String, dynamic>> createOffer() async {
+  Future<String> createOffer() async {
     final description = await _peerConnection!.createOffer(_constraints);
     await _peerConnection!.setLocalDescription(description);
-    return _sesion(description);
+    return _session(description);
   }
 
   @override
-  Future<Map<String, dynamic>> createAnswer() async {
+  Future<String> createAnswer() async {
     final description = await _peerConnection!.createAnswer(_constraints);
     await _peerConnection!.setLocalDescription(description);
-    return _sesion(description);
+    return _session(description);
   }
 
   @override
   Future<void> setRemoteDescription(String value) async {
-    final session = await jsonDecode(value) as Map<String, dynamic>;
-    final sdp = write(session, null);
+    // final session = await jsonDecode(value) as Map<String, dynamic>;
+    // print('$session session');
+    // final session2 = parse(value);
+    // print('$session2 session2');
+    // final sdp = write(parse(value), null);
     final description = RTCSessionDescription(
-      sdp,
+      value,
       'answer',
-      //  : 'offer',
+      // 'offer',
     );
-    log(description.toMap().toString());
+    // log(sdp);
+    // log(description.toMap().toString());
     await _peerConnection!.setRemoteDescription(description);
   }
 
@@ -165,8 +168,26 @@ class WebRtcRepository implements IWebRTCRepository {
     await _peerConnection!.addCandidate(candidate);
   }
 
-  Map<String, dynamic> _sesion(RTCSessionDescription description) =>
-      parse(description.sdp!);
+  String _session(RTCSessionDescription description) {
+    try {
+      return description.sdp!;
+      // final j = jsonDecode(description.sdp!);
+      // final j2 = parse(description.sdp!);
+      // print(j);
+      // log('$j2');
+      // return j2;
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
 
   Map<String, dynamic> get _constraints => {'offerToReceiveVideo': 1};
+
+  Map<String, dynamic> get _loopbackConstraints => <String, dynamic>{
+        'mandatory': {},
+        'optional': [
+          {'DtlsSrtpKeyAgreement': false},
+        ],
+      };
 }
