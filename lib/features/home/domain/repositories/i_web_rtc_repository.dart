@@ -5,6 +5,10 @@ abstract class IWebRTCRepository {
   Future<RTCVideoRenderer> initRemoteRender();
   Stream<WebRTCData> get onLocalWebRTC;
   Future<void> close();
+  Future<Map<String, dynamic>> createOffer();
+  Future<Map<String, dynamic>> createAnswer();
+  Future<void> setRemoteDescription(String value);
+  Future<void> addCandidate(String value);
 }
 
 abstract class WebRTCData {}

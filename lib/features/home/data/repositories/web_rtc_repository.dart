@@ -1,12 +1,14 @@
 // ignore_for_file: use_setters_to_change_properties, use_late_for_private_fields_and_variables, inference_failure_on_collection_literal
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:demo_webrtc/core/core.dart';
 import 'package:demo_webrtc/features/home/home.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:sdp_transform/sdp_transform.dart';
 
 @Injectable(as: IWebRTCRepository)
 class WebRtcRepository implements IWebRTCRepository {
@@ -39,7 +41,6 @@ class WebRtcRepository implements IWebRTCRepository {
       _remoteVideoRenderer = RTCVideoRenderer();
       await _remoteVideoRenderer.initialize();
       _peerConnection = await _createPeerConnection();
-      await _createOffer();
       return _remoteVideoRenderer;
     } catch (_) {
       rethrow;
@@ -83,6 +84,7 @@ class WebRtcRepository implements IWebRTCRepository {
         'sdpSemantics': 'plan-b',
         'iceServers': [
           {'url': 'stun:stun.l.google.com:19302'}
+          // {'url': 'eturnal.stunturn.svc.cluster.local:3479'}
           // {'url': _config.turnUrl}
         ]
       };
@@ -124,10 +126,47 @@ class WebRtcRepository implements IWebRTCRepository {
     return peerConnection;
   }
 
-  Future<void> _createOffer() async {
-    final description = await _peerConnection!.createOffer(
-      {'offerToReceiveVideo': 1},
-    );
-    _peerConnection!.setLocalDescription(description);
+  @override
+  Future<Map<String, dynamic>> createOffer() async {
+    final description = await _peerConnection!.createOffer(_constraints);
+    await _peerConnection!.setLocalDescription(description);
+    return _sesion(description);
   }
+
+  @override
+  Future<Map<String, dynamic>> createAnswer() async {
+    final description = await _peerConnection!.createAnswer(_constraints);
+    await _peerConnection!.setLocalDescription(description);
+    return _sesion(description);
+  }
+
+  @override
+  Future<void> setRemoteDescription(String value) async {
+    final session = await jsonDecode(value) as Map<String, dynamic>;
+    final sdp = write(session, null);
+    final description = RTCSessionDescription(
+      sdp,
+      'answer',
+      //  : 'offer',
+    );
+    log(description.toMap().toString());
+    await _peerConnection!.setRemoteDescription(description);
+  }
+
+  @override
+  Future<void> addCandidate(String value) async {
+    final session = await jsonDecode(value);
+    log((session['candidate'] as String?) ?? '');
+    final candidate = RTCIceCandidate(
+      session['candidate'] as String?,
+      session['sdpMid'] as String?,
+      session['sdpMlineIndex'] as int?,
+    );
+    await _peerConnection!.addCandidate(candidate);
+  }
+
+  Map<String, dynamic> _sesion(RTCSessionDescription description) =>
+      parse(description.sdp!);
+
+  Map<String, dynamic> get _constraints => {'offerToReceiveVideo': 1};
 }

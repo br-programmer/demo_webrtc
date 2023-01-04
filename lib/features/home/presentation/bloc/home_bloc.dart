@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:demo_webrtc/features/home/home.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -17,6 +18,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc(this._repository) : super(HomeState.initial()) {
     on<_Start>(_startToState);
     on<_RemoteConnect>(_remoteConnectToState);
+    on<_Offer>(_offerToState);
+    on<_Answer>(_answerToState);
+    on<_Description>(_descriptionToState);
+    on<_Candidate>(_candidateToState);
   }
 
   final IWebRTCRepository _repository;
@@ -26,6 +31,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   late final StreamSubscription<WebRTCData> _subscription;
   RTCVideoRenderer get localRender => _localRender;
   RTCVideoRenderer get remoteRender => _remoteRender;
+
+  late final TextEditingController _controller;
+  TextEditingController get controller => _controller;
+
+  void init() {
+    _controller = TextEditingController();
+  }
 
   Future<void> _startToState(_, Emitter<HomeState> emit) async {
     try {
@@ -76,7 +88,47 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Future<void> close() async {
     await _subscription.cancel();
     await _repository.close();
+    _controller.dispose();
     Wakelock.disable();
     return super.close();
   }
+
+  Future<void> _offerToState(_, Emitter<HomeState> emit) async {
+    try {
+      final session = await _repository.createOffer();
+      print('==============');
+      print(session);
+      print('==============');
+    } catch (_) {
+      print(_);
+    }
+  }
+
+  Future<void> _answerToState(_, Emitter<HomeState> emit) async {
+    try {
+      final session = await _repository.createAnswer();
+      print(session);
+    } catch (_) {
+      print(_);
+    }
+  }
+
+  Future<void> _descriptionToState(_, Emitter<HomeState> emit) async {
+    try {
+      print(value);
+      await _repository.setRemoteDescription(value);
+    } catch (_) {
+      print(_);
+    }
+  }
+
+  Future<void> _candidateToState(_, Emitter<HomeState> emit) async {
+    try {
+      await _repository.addCandidate(value);
+    } catch (_) {
+      print(_);
+    }
+  }
+
+  String get value => _controller.text;
 }

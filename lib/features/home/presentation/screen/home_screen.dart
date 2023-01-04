@@ -11,6 +11,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<HomeBloc>(
       create: (_) => GetIt.I.get()
+        ..init()
         ..add(const HomeEvent.onStart())
         ..add(const HomeEvent.onRemoteConnect()),
       child: Scaffold(
@@ -18,11 +19,72 @@ class HomeScreen extends StatelessWidget {
           title: const Text('Flutter WebRTC Demo'),
           centerTitle: true,
         ),
-        body: Stack(
-          children: const [
-            _RemoteVideo(),
-            _LocalVideo(),
+        body: Column(
+          children: [
+            const _Input(),
+            const _Buttons(),
+            Expanded(
+              child: Stack(
+                children: const [
+                  _RemoteVideo(),
+                  _LocalVideo(),
+                ],
+              ),
+            ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _Buttons extends StatelessWidget {
+  const _Buttons();
+
+  @override
+  Widget build(BuildContext context) {
+    final bloc = context.read<HomeBloc>();
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+          onPressed: () => bloc.add(const HomeEvent.onOffer()),
+          child: const Text('Offer'),
+        ),
+        const SizedBox(width: 10),
+        ElevatedButton(
+          onPressed: () => bloc.add(const HomeEvent.onAnswer()),
+          child: const Text('Answer'),
+        ),
+        const SizedBox(width: 10),
+        ElevatedButton(
+          onPressed: () => bloc.add(const HomeEvent.onDescription()),
+          child: const Text('Set Description'),
+        ),
+        const SizedBox(width: 10),
+        ElevatedButton(
+          onPressed: () => bloc.add(const HomeEvent.onCandidate()),
+          child: const Text('Set Candidate'),
+        ),
+      ],
+    );
+  }
+}
+
+class _Input extends StatelessWidget {
+  const _Input();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: TextField(
+        controller: context.read<HomeBloc>().controller,
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(),
+          enabledBorder: OutlineInputBorder(),
+          disabledBorder: OutlineInputBorder(),
+          focusedBorder: OutlineInputBorder(),
         ),
       ),
     );
