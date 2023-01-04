@@ -14,5 +14,6 @@ class DevConfig implements Config {
   String get flavorName => dev.name;
 
   @override
-  String get turnUrl => 'stun.dev.ourglass.cc';
+  // String get turnUrl => 'stun.dev.ourglass.cc';
+  String get turnUrl => 'stun:stun.dev.ourglass.cc:3479';
 }
