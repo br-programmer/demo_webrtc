@@ -15,4 +15,7 @@ class ProdConfig implements Config {
 
   @override
   String get turnUrl => '';
+
+  @override
+  String get accesToken => '';
 }

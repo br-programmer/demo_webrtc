@@ -1,6 +1,7 @@
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 
 abstract class IWebRTCRepository {
+  Future<void> initSockets();
   Future<RTCVideoRenderer> initLocalRender();
   Future<RTCVideoRenderer> initRemoteRender();
   Stream<WebRTCData> get onLocalWebRTC;
@@ -9,6 +10,7 @@ abstract class IWebRTCRepository {
   Future<String> createAnswer();
   Future<void> setRemoteDescription(String value);
   Future<void> addCandidate(String value);
+  Future<void> sendSdp(String value);
 }
 
 abstract class WebRTCData {}
@@ -35,4 +37,10 @@ class RemoteVideoTracks implements WebRTCData {
   const RemoteVideoTracks(this.videoTracks);
 
   final List<MediaStreamTrack> videoTracks;
+}
+
+class RemoteSDPRecived implements WebRTCData {
+  RemoteSDPRecived(this.sdp);
+
+  final String sdp;
 }

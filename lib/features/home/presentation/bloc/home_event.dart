@@ -8,4 +8,5 @@ class HomeEvent with _$HomeEvent {
   const factory HomeEvent.onAnswer() = _Answer;
   const factory HomeEvent.onDescription() = _Description;
   const factory HomeEvent.onCandidate() = _Candidate;
+  const factory HomeEvent.onSdpRecived({required String sdp}) = _SdpRecived;
 }

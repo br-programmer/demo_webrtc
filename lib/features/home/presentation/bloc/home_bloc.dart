@@ -22,6 +22,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<_Answer>(_answerToState);
     on<_Description>(_descriptionToState);
     on<_Candidate>(_candidateToState);
+    on<_SdpRecived>(_sdpRecivedToState);
   }
 
   final IWebRTCRepository _repository;
@@ -37,6 +38,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   void init() {
     _controller = TextEditingController();
+    try {
+      _repository.initSockets();
+    } catch (_) {
+      print(_);
+    }
   }
 
   Future<void> _startToState(_, Emitter<HomeState> emit) async {
@@ -72,6 +78,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         log('local-video-track: $videoTrack');
       }
     }
+    if (data is RemoteSDPRecived) {
+      add(HomeEvent.onSdpRecived(sdp: data.sdp));
+    }
   }
 
   Future<void> _remoteConnectToState(_, Emitter<HomeState> emit) async {
@@ -96,7 +105,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Future<void> _offerToState(_, Emitter<HomeState> emit) async {
     try {
       final session = await _repository.createOffer();
-      log(session);
+      await _repository.sendSdp(session);
     } catch (_) {
       print(_);
     }
@@ -105,7 +114,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Future<void> _answerToState(_, Emitter<HomeState> emit) async {
     try {
       final session = await _repository.createAnswer();
-      log(session);
+      await _repository.sendSdp(session);
     } catch (_) {
       print(_);
     }
@@ -113,8 +122,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   Future<void> _descriptionToState(_, Emitter<HomeState> emit) async {
     try {
-      log(value);
-      await _repository.setRemoteDescription(value);
+      await _repository.setRemoteDescription(
+        state.sdpForDescription ?? state.sdpForSetCandidate!,
+      );
     } catch (_) {
       print(_);
     }
@@ -122,11 +132,27 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   Future<void> _candidateToState(_, Emitter<HomeState> emit) async {
     try {
-      await _repository.addCandidate(value);
+      await _repository.addCandidate(
+        state.sdpForDescription ?? state.sdpForSetCandidate!,
+      );
     } catch (_) {
       print(_);
     }
   }
 
   String get value => _controller.text;
+
+  void _sdpRecivedToState(
+    _SdpRecived event,
+    Emitter<HomeState> emit,
+  ) {
+    final state = this.state.copyWith(
+          activeAnswer: true,
+          activeSetCandidate: true,
+          activeSetDescription: true,
+          sdpForDescription: event.sdp,
+          sdpForSetCandidate: event.sdp,
+        );
+    emit(state);
+  }
 }

@@ -21,6 +21,8 @@ dependencies:
 
   sdp_transform: ^0.3.2
 
+  signalr_core: ^1.1.1
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

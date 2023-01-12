@@ -8,6 +8,8 @@ import 'package:demo_webrtc/core/core.dart';
 import 'package:demo_webrtc/features/home/home.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:sdp_transform/sdp_transform.dart';
+import 'package:signalr_core/signalr_core.dart';
 
 @Injectable(as: IWebRTCRepository)
 class WebRtcRepository implements IWebRTCRepository {
@@ -19,8 +21,64 @@ class WebRtcRepository implements IWebRTCRepository {
   RTCPeerConnection? _peerConnection;
   MediaStream? _localStream;
 
+  HubConnection? _connection;
+
+  bool _offer = false;
+
   late final RTCVideoRenderer _localVideoRenderer;
   late final RTCVideoRenderer _remoteVideoRenderer;
+
+  @override
+  Future<void> initSockets() async {
+    try {
+      _connection ??= HubConnectionBuilder()
+          .withUrl(
+            Uri.https(_config.baseUrl, 'chat/messaging').toString(),
+            HttpConnectionOptions(
+              accessTokenFactory: _accessTokenFactory,
+            ),
+          )
+          .withAutomaticReconnect()
+          .build();
+      await _connection!.start();
+      _connection!.on('ReceiveMessage', _recivedMessage);
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> sendSdp(String value) async {
+    try {
+      await _connection?.invoke(
+        'Send',
+        args: [
+          '52A0C3A5-F2B2-4877-A184-08DAF413495A',
+          value,
+        ],
+      );
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  void _recivedMessage(List<dynamic>? messages) {
+    if (messages != null) {
+      final message = messages.first;
+      final sdp = message['message'] as String;
+      // final userFromUsername = message['userFromUsername'] as String;
+
+      _addToStream(RemoteSDPRecived(sdp));
+    }
+  }
+
+  Future<String?> _accessTokenFactory() {
+    try {
+      return Future.value(_config.accesToken);
+    } catch (_) {
+      return Future.value();
+    }
+  }
 
   @override
   Future<RTCVideoRenderer> initLocalRender() async {
@@ -55,6 +113,7 @@ class WebRtcRepository implements IWebRTCRepository {
   @override
   Future<void> close() async {
     await _localVideoRenderer.dispose();
+    await _connection?.stop();
   }
 
   Future<MediaStream> _getUserMedia() async {
@@ -63,7 +122,8 @@ class WebRtcRepository implements IWebRTCRepository {
         'audio': true,
         'video': {'facingMode': 'user'}
       };
-      _localStream = await navigator.mediaDevices.getUserMedia(mediaConstraints);
+      _localStream =
+          await navigator.mediaDevices.getUserMedia(mediaConstraints);
       _localVideoRenderer.srcObject = _localStream;
       _addToStream(LocalAudioTracks(_localStream!.getAudioTracks()));
       _addToStream(LocalVideoTracks(_localStream!.getVideoTracks()));
@@ -114,8 +174,7 @@ class WebRtcRepository implements IWebRTCRepository {
   Future<RTCPeerConnection> _createPeerConnection() async {
     final peerConnection = await createPeerConnection(
       _configuration,
-      // _offerSdpConstraints,
-      _loopbackConstraints,
+      _offerSdpConstraints,
     );
     await peerConnection.addStream(await _getUserMedia());
     peerConnection
@@ -129,6 +188,7 @@ class WebRtcRepository implements IWebRTCRepository {
   Future<String> createOffer() async {
     final description = await _peerConnection!.createOffer(_constraints);
     await _peerConnection!.setLocalDescription(description);
+    _offer = true;
     return _session(description);
   }
 
@@ -148,8 +208,7 @@ class WebRtcRepository implements IWebRTCRepository {
     // final sdp = write(parse(value), null);
     final description = RTCSessionDescription(
       value,
-      'answer',
-      // 'offer',
+      _offer ? 'answer' : 'offer',
     );
     // log(sdp);
     // log(description.toMap().toString());
@@ -170,14 +229,14 @@ class WebRtcRepository implements IWebRTCRepository {
 
   String _session(RTCSessionDescription description) {
     try {
+      final j2 = parse(description.sdp!);
+      log('$j2');
       return description.sdp!;
       // final j = jsonDecode(description.sdp!);
-      // final j2 = parse(description.sdp!);
       // print(j);
       // log('$j2');
       // return j2;
     } catch (e) {
-      print(e);
       rethrow;
     }
   }
@@ -190,4 +249,12 @@ class WebRtcRepository implements IWebRTCRepository {
           {'DtlsSrtpKeyAgreement': false},
         ],
       };
+}
+
+extension HubConnectionStateX on HubConnectionState {
+  bool get connecting => this == HubConnectionState.connecting;
+  bool get reconnecting => this == HubConnectionState.reconnecting;
+  bool get disconnecting => this == HubConnectionState.disconnecting;
+  bool get connected => this == HubConnectionState.connected;
+  bool get disconnected => this == HubConnectionState.disconnected;
 }

@@ -24,6 +24,7 @@ mixin _$HomeEvent {
     required TResult Function() onAnswer,
     required TResult Function() onDescription,
     required TResult Function() onCandidate,
+    required TResult Function(String sdp) onSdpRecived,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -34,6 +35,7 @@ mixin _$HomeEvent {
     TResult? Function()? onAnswer,
     TResult? Function()? onDescription,
     TResult? Function()? onCandidate,
+    TResult? Function(String sdp)? onSdpRecived,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -44,6 +46,7 @@ mixin _$HomeEvent {
     TResult Function()? onAnswer,
     TResult Function()? onDescription,
     TResult Function()? onCandidate,
+    TResult Function(String sdp)? onSdpRecived,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -55,6 +58,7 @@ mixin _$HomeEvent {
     required TResult Function(_Answer value) onAnswer,
     required TResult Function(_Description value) onDescription,
     required TResult Function(_Candidate value) onCandidate,
+    required TResult Function(_SdpRecived value) onSdpRecived,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -65,6 +69,7 @@ mixin _$HomeEvent {
     TResult? Function(_Answer value)? onAnswer,
     TResult? Function(_Description value)? onDescription,
     TResult? Function(_Candidate value)? onCandidate,
+    TResult? Function(_SdpRecived value)? onSdpRecived,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -75,6 +80,7 @@ mixin _$HomeEvent {
     TResult Function(_Answer value)? onAnswer,
     TResult Function(_Description value)? onDescription,
     TResult Function(_Candidate value)? onCandidate,
+    TResult Function(_SdpRecived value)? onSdpRecived,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -139,6 +145,7 @@ class _$_Start implements _Start {
     required TResult Function() onAnswer,
     required TResult Function() onDescription,
     required TResult Function() onCandidate,
+    required TResult Function(String sdp) onSdpRecived,
   }) {
     return onStart();
   }
@@ -152,6 +159,7 @@ class _$_Start implements _Start {
     TResult? Function()? onAnswer,
     TResult? Function()? onDescription,
     TResult? Function()? onCandidate,
+    TResult? Function(String sdp)? onSdpRecived,
   }) {
     return onStart?.call();
   }
@@ -165,6 +173,7 @@ class _$_Start implements _Start {
     TResult Function()? onAnswer,
     TResult Function()? onDescription,
     TResult Function()? onCandidate,
+    TResult Function(String sdp)? onSdpRecived,
     required TResult orElse(),
   }) {
     if (onStart != null) {
@@ -182,6 +191,7 @@ class _$_Start implements _Start {
     required TResult Function(_Answer value) onAnswer,
     required TResult Function(_Description value) onDescription,
     required TResult Function(_Candidate value) onCandidate,
+    required TResult Function(_SdpRecived value) onSdpRecived,
   }) {
     return onStart(this);
   }
@@ -195,6 +205,7 @@ class _$_Start implements _Start {
     TResult? Function(_Answer value)? onAnswer,
     TResult? Function(_Description value)? onDescription,
     TResult? Function(_Candidate value)? onCandidate,
+    TResult? Function(_SdpRecived value)? onSdpRecived,
   }) {
     return onStart?.call(this);
   }
@@ -208,6 +219,7 @@ class _$_Start implements _Start {
     TResult Function(_Answer value)? onAnswer,
     TResult Function(_Description value)? onDescription,
     TResult Function(_Candidate value)? onCandidate,
+    TResult Function(_SdpRecived value)? onSdpRecived,
     required TResult orElse(),
   }) {
     if (onStart != null) {
@@ -265,6 +277,7 @@ class _$_RemoteConnect implements _RemoteConnect {
     required TResult Function() onAnswer,
     required TResult Function() onDescription,
     required TResult Function() onCandidate,
+    required TResult Function(String sdp) onSdpRecived,
   }) {
     return onRemoteConnect();
   }
@@ -278,6 +291,7 @@ class _$_RemoteConnect implements _RemoteConnect {
     TResult? Function()? onAnswer,
     TResult? Function()? onDescription,
     TResult? Function()? onCandidate,
+    TResult? Function(String sdp)? onSdpRecived,
   }) {
     return onRemoteConnect?.call();
   }
@@ -291,6 +305,7 @@ class _$_RemoteConnect implements _RemoteConnect {
     TResult Function()? onAnswer,
     TResult Function()? onDescription,
     TResult Function()? onCandidate,
+    TResult Function(String sdp)? onSdpRecived,
     required TResult orElse(),
   }) {
     if (onRemoteConnect != null) {
@@ -308,6 +323,7 @@ class _$_RemoteConnect implements _RemoteConnect {
     required TResult Function(_Answer value) onAnswer,
     required TResult Function(_Description value) onDescription,
     required TResult Function(_Candidate value) onCandidate,
+    required TResult Function(_SdpRecived value) onSdpRecived,
   }) {
     return onRemoteConnect(this);
   }
@@ -321,6 +337,7 @@ class _$_RemoteConnect implements _RemoteConnect {
     TResult? Function(_Answer value)? onAnswer,
     TResult? Function(_Description value)? onDescription,
     TResult? Function(_Candidate value)? onCandidate,
+    TResult? Function(_SdpRecived value)? onSdpRecived,
   }) {
     return onRemoteConnect?.call(this);
   }
@@ -334,6 +351,7 @@ class _$_RemoteConnect implements _RemoteConnect {
     TResult Function(_Answer value)? onAnswer,
     TResult Function(_Description value)? onDescription,
     TResult Function(_Candidate value)? onCandidate,
+    TResult Function(_SdpRecived value)? onSdpRecived,
     required TResult orElse(),
   }) {
     if (onRemoteConnect != null) {
@@ -389,6 +407,7 @@ class _$_Offer implements _Offer {
     required TResult Function() onAnswer,
     required TResult Function() onDescription,
     required TResult Function() onCandidate,
+    required TResult Function(String sdp) onSdpRecived,
   }) {
     return onOffer();
   }
@@ -402,6 +421,7 @@ class _$_Offer implements _Offer {
     TResult? Function()? onAnswer,
     TResult? Function()? onDescription,
     TResult? Function()? onCandidate,
+    TResult? Function(String sdp)? onSdpRecived,
   }) {
     return onOffer?.call();
   }
@@ -415,6 +435,7 @@ class _$_Offer implements _Offer {
     TResult Function()? onAnswer,
     TResult Function()? onDescription,
     TResult Function()? onCandidate,
+    TResult Function(String sdp)? onSdpRecived,
     required TResult orElse(),
   }) {
     if (onOffer != null) {
@@ -432,6 +453,7 @@ class _$_Offer implements _Offer {
     required TResult Function(_Answer value) onAnswer,
     required TResult Function(_Description value) onDescription,
     required TResult Function(_Candidate value) onCandidate,
+    required TResult Function(_SdpRecived value) onSdpRecived,
   }) {
     return onOffer(this);
   }
@@ -445,6 +467,7 @@ class _$_Offer implements _Offer {
     TResult? Function(_Answer value)? onAnswer,
     TResult? Function(_Description value)? onDescription,
     TResult? Function(_Candidate value)? onCandidate,
+    TResult? Function(_SdpRecived value)? onSdpRecived,
   }) {
     return onOffer?.call(this);
   }
@@ -458,6 +481,7 @@ class _$_Offer implements _Offer {
     TResult Function(_Answer value)? onAnswer,
     TResult Function(_Description value)? onDescription,
     TResult Function(_Candidate value)? onCandidate,
+    TResult Function(_SdpRecived value)? onSdpRecived,
     required TResult orElse(),
   }) {
     if (onOffer != null) {
@@ -513,6 +537,7 @@ class _$_Answer implements _Answer {
     required TResult Function() onAnswer,
     required TResult Function() onDescription,
     required TResult Function() onCandidate,
+    required TResult Function(String sdp) onSdpRecived,
   }) {
     return onAnswer();
   }
@@ -526,6 +551,7 @@ class _$_Answer implements _Answer {
     TResult? Function()? onAnswer,
     TResult? Function()? onDescription,
     TResult? Function()? onCandidate,
+    TResult? Function(String sdp)? onSdpRecived,
   }) {
     return onAnswer?.call();
   }
@@ -539,6 +565,7 @@ class _$_Answer implements _Answer {
     TResult Function()? onAnswer,
     TResult Function()? onDescription,
     TResult Function()? onCandidate,
+    TResult Function(String sdp)? onSdpRecived,
     required TResult orElse(),
   }) {
     if (onAnswer != null) {
@@ -556,6 +583,7 @@ class _$_Answer implements _Answer {
     required TResult Function(_Answer value) onAnswer,
     required TResult Function(_Description value) onDescription,
     required TResult Function(_Candidate value) onCandidate,
+    required TResult Function(_SdpRecived value) onSdpRecived,
   }) {
     return onAnswer(this);
   }
@@ -569,6 +597,7 @@ class _$_Answer implements _Answer {
     TResult? Function(_Answer value)? onAnswer,
     TResult? Function(_Description value)? onDescription,
     TResult? Function(_Candidate value)? onCandidate,
+    TResult? Function(_SdpRecived value)? onSdpRecived,
   }) {
     return onAnswer?.call(this);
   }
@@ -582,6 +611,7 @@ class _$_Answer implements _Answer {
     TResult Function(_Answer value)? onAnswer,
     TResult Function(_Description value)? onDescription,
     TResult Function(_Candidate value)? onCandidate,
+    TResult Function(_SdpRecived value)? onSdpRecived,
     required TResult orElse(),
   }) {
     if (onAnswer != null) {
@@ -639,6 +669,7 @@ class _$_Description implements _Description {
     required TResult Function() onAnswer,
     required TResult Function() onDescription,
     required TResult Function() onCandidate,
+    required TResult Function(String sdp) onSdpRecived,
   }) {
     return onDescription();
   }
@@ -652,6 +683,7 @@ class _$_Description implements _Description {
     TResult? Function()? onAnswer,
     TResult? Function()? onDescription,
     TResult? Function()? onCandidate,
+    TResult? Function(String sdp)? onSdpRecived,
   }) {
     return onDescription?.call();
   }
@@ -665,6 +697,7 @@ class _$_Description implements _Description {
     TResult Function()? onAnswer,
     TResult Function()? onDescription,
     TResult Function()? onCandidate,
+    TResult Function(String sdp)? onSdpRecived,
     required TResult orElse(),
   }) {
     if (onDescription != null) {
@@ -682,6 +715,7 @@ class _$_Description implements _Description {
     required TResult Function(_Answer value) onAnswer,
     required TResult Function(_Description value) onDescription,
     required TResult Function(_Candidate value) onCandidate,
+    required TResult Function(_SdpRecived value) onSdpRecived,
   }) {
     return onDescription(this);
   }
@@ -695,6 +729,7 @@ class _$_Description implements _Description {
     TResult? Function(_Answer value)? onAnswer,
     TResult? Function(_Description value)? onDescription,
     TResult? Function(_Candidate value)? onCandidate,
+    TResult? Function(_SdpRecived value)? onSdpRecived,
   }) {
     return onDescription?.call(this);
   }
@@ -708,6 +743,7 @@ class _$_Description implements _Description {
     TResult Function(_Answer value)? onAnswer,
     TResult Function(_Description value)? onDescription,
     TResult Function(_Candidate value)? onCandidate,
+    TResult Function(_SdpRecived value)? onSdpRecived,
     required TResult orElse(),
   }) {
     if (onDescription != null) {
@@ -765,6 +801,7 @@ class _$_Candidate implements _Candidate {
     required TResult Function() onAnswer,
     required TResult Function() onDescription,
     required TResult Function() onCandidate,
+    required TResult Function(String sdp) onSdpRecived,
   }) {
     return onCandidate();
   }
@@ -778,6 +815,7 @@ class _$_Candidate implements _Candidate {
     TResult? Function()? onAnswer,
     TResult? Function()? onDescription,
     TResult? Function()? onCandidate,
+    TResult? Function(String sdp)? onSdpRecived,
   }) {
     return onCandidate?.call();
   }
@@ -791,6 +829,7 @@ class _$_Candidate implements _Candidate {
     TResult Function()? onAnswer,
     TResult Function()? onDescription,
     TResult Function()? onCandidate,
+    TResult Function(String sdp)? onSdpRecived,
     required TResult orElse(),
   }) {
     if (onCandidate != null) {
@@ -808,6 +847,7 @@ class _$_Candidate implements _Candidate {
     required TResult Function(_Answer value) onAnswer,
     required TResult Function(_Description value) onDescription,
     required TResult Function(_Candidate value) onCandidate,
+    required TResult Function(_SdpRecived value) onSdpRecived,
   }) {
     return onCandidate(this);
   }
@@ -821,6 +861,7 @@ class _$_Candidate implements _Candidate {
     TResult? Function(_Answer value)? onAnswer,
     TResult? Function(_Description value)? onDescription,
     TResult? Function(_Candidate value)? onCandidate,
+    TResult? Function(_SdpRecived value)? onSdpRecived,
   }) {
     return onCandidate?.call(this);
   }
@@ -834,6 +875,7 @@ class _$_Candidate implements _Candidate {
     TResult Function(_Answer value)? onAnswer,
     TResult Function(_Description value)? onDescription,
     TResult Function(_Candidate value)? onCandidate,
+    TResult Function(_SdpRecived value)? onSdpRecived,
     required TResult orElse(),
   }) {
     if (onCandidate != null) {
@@ -848,9 +890,177 @@ abstract class _Candidate implements HomeEvent {
 }
 
 /// @nodoc
+abstract class _$$_SdpRecivedCopyWith<$Res> {
+  factory _$$_SdpRecivedCopyWith(
+          _$_SdpRecived value, $Res Function(_$_SdpRecived) then) =
+      __$$_SdpRecivedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String sdp});
+}
+
+/// @nodoc
+class __$$_SdpRecivedCopyWithImpl<$Res>
+    extends _$HomeEventCopyWithImpl<$Res, _$_SdpRecived>
+    implements _$$_SdpRecivedCopyWith<$Res> {
+  __$$_SdpRecivedCopyWithImpl(
+      _$_SdpRecived _value, $Res Function(_$_SdpRecived) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? sdp = null,
+  }) {
+    return _then(_$_SdpRecived(
+      sdp: null == sdp
+          ? _value.sdp
+          : sdp // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_SdpRecived implements _SdpRecived {
+  const _$_SdpRecived({required this.sdp});
+
+  @override
+  final String sdp;
+
+  @override
+  String toString() {
+    return 'HomeEvent.onSdpRecived(sdp: $sdp)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SdpRecived &&
+            (identical(other.sdp, sdp) || other.sdp == sdp));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, sdp);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SdpRecivedCopyWith<_$_SdpRecived> get copyWith =>
+      __$$_SdpRecivedCopyWithImpl<_$_SdpRecived>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() onStart,
+    required TResult Function() onRemoteConnect,
+    required TResult Function() onOffer,
+    required TResult Function() onAnswer,
+    required TResult Function() onDescription,
+    required TResult Function() onCandidate,
+    required TResult Function(String sdp) onSdpRecived,
+  }) {
+    return onSdpRecived(sdp);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? onStart,
+    TResult? Function()? onRemoteConnect,
+    TResult? Function()? onOffer,
+    TResult? Function()? onAnswer,
+    TResult? Function()? onDescription,
+    TResult? Function()? onCandidate,
+    TResult? Function(String sdp)? onSdpRecived,
+  }) {
+    return onSdpRecived?.call(sdp);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? onStart,
+    TResult Function()? onRemoteConnect,
+    TResult Function()? onOffer,
+    TResult Function()? onAnswer,
+    TResult Function()? onDescription,
+    TResult Function()? onCandidate,
+    TResult Function(String sdp)? onSdpRecived,
+    required TResult orElse(),
+  }) {
+    if (onSdpRecived != null) {
+      return onSdpRecived(sdp);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Start value) onStart,
+    required TResult Function(_RemoteConnect value) onRemoteConnect,
+    required TResult Function(_Offer value) onOffer,
+    required TResult Function(_Answer value) onAnswer,
+    required TResult Function(_Description value) onDescription,
+    required TResult Function(_Candidate value) onCandidate,
+    required TResult Function(_SdpRecived value) onSdpRecived,
+  }) {
+    return onSdpRecived(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Start value)? onStart,
+    TResult? Function(_RemoteConnect value)? onRemoteConnect,
+    TResult? Function(_Offer value)? onOffer,
+    TResult? Function(_Answer value)? onAnswer,
+    TResult? Function(_Description value)? onDescription,
+    TResult? Function(_Candidate value)? onCandidate,
+    TResult? Function(_SdpRecived value)? onSdpRecived,
+  }) {
+    return onSdpRecived?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Start value)? onStart,
+    TResult Function(_RemoteConnect value)? onRemoteConnect,
+    TResult Function(_Offer value)? onOffer,
+    TResult Function(_Answer value)? onAnswer,
+    TResult Function(_Description value)? onDescription,
+    TResult Function(_Candidate value)? onCandidate,
+    TResult Function(_SdpRecived value)? onSdpRecived,
+    required TResult orElse(),
+  }) {
+    if (onSdpRecived != null) {
+      return onSdpRecived(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SdpRecived implements HomeEvent {
+  const factory _SdpRecived({required final String sdp}) = _$_SdpRecived;
+
+  String get sdp;
+  @JsonKey(ignore: true)
+  _$$_SdpRecivedCopyWith<_$_SdpRecived> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$HomeState {
   LocalStatus get localStatus => throw _privateConstructorUsedError;
   RemoteStatus get remoteStatus => throw _privateConstructorUsedError;
+  bool get activeAnswer => throw _privateConstructorUsedError;
+  bool get activeSetDescription => throw _privateConstructorUsedError;
+  bool get activeSetCandidate => throw _privateConstructorUsedError;
+  String? get sdpForDescription => throw _privateConstructorUsedError;
+  String? get sdpForSetCandidate => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -862,7 +1072,14 @@ abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
       _$HomeStateCopyWithImpl<$Res, HomeState>;
   @useResult
-  $Res call({LocalStatus localStatus, RemoteStatus remoteStatus});
+  $Res call(
+      {LocalStatus localStatus,
+      RemoteStatus remoteStatus,
+      bool activeAnswer,
+      bool activeSetDescription,
+      bool activeSetCandidate,
+      String? sdpForDescription,
+      String? sdpForSetCandidate});
 }
 
 /// @nodoc
@@ -880,6 +1097,11 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   $Res call({
     Object? localStatus = null,
     Object? remoteStatus = null,
+    Object? activeAnswer = null,
+    Object? activeSetDescription = null,
+    Object? activeSetCandidate = null,
+    Object? sdpForDescription = freezed,
+    Object? sdpForSetCandidate = freezed,
   }) {
     return _then(_value.copyWith(
       localStatus: null == localStatus
@@ -890,6 +1112,26 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.remoteStatus
           : remoteStatus // ignore: cast_nullable_to_non_nullable
               as RemoteStatus,
+      activeAnswer: null == activeAnswer
+          ? _value.activeAnswer
+          : activeAnswer // ignore: cast_nullable_to_non_nullable
+              as bool,
+      activeSetDescription: null == activeSetDescription
+          ? _value.activeSetDescription
+          : activeSetDescription // ignore: cast_nullable_to_non_nullable
+              as bool,
+      activeSetCandidate: null == activeSetCandidate
+          ? _value.activeSetCandidate
+          : activeSetCandidate // ignore: cast_nullable_to_non_nullable
+              as bool,
+      sdpForDescription: freezed == sdpForDescription
+          ? _value.sdpForDescription
+          : sdpForDescription // ignore: cast_nullable_to_non_nullable
+              as String?,
+      sdpForSetCandidate: freezed == sdpForSetCandidate
+          ? _value.sdpForSetCandidate
+          : sdpForSetCandidate // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -901,7 +1143,14 @@ abstract class _$$_HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
       __$$_HomeStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({LocalStatus localStatus, RemoteStatus remoteStatus});
+  $Res call(
+      {LocalStatus localStatus,
+      RemoteStatus remoteStatus,
+      bool activeAnswer,
+      bool activeSetDescription,
+      bool activeSetCandidate,
+      String? sdpForDescription,
+      String? sdpForSetCandidate});
 }
 
 /// @nodoc
@@ -917,6 +1166,11 @@ class __$$_HomeStateCopyWithImpl<$Res>
   $Res call({
     Object? localStatus = null,
     Object? remoteStatus = null,
+    Object? activeAnswer = null,
+    Object? activeSetDescription = null,
+    Object? activeSetCandidate = null,
+    Object? sdpForDescription = freezed,
+    Object? sdpForSetCandidate = freezed,
   }) {
     return _then(_$_HomeState(
       localStatus: null == localStatus
@@ -927,6 +1181,26 @@ class __$$_HomeStateCopyWithImpl<$Res>
           ? _value.remoteStatus
           : remoteStatus // ignore: cast_nullable_to_non_nullable
               as RemoteStatus,
+      activeAnswer: null == activeAnswer
+          ? _value.activeAnswer
+          : activeAnswer // ignore: cast_nullable_to_non_nullable
+              as bool,
+      activeSetDescription: null == activeSetDescription
+          ? _value.activeSetDescription
+          : activeSetDescription // ignore: cast_nullable_to_non_nullable
+              as bool,
+      activeSetCandidate: null == activeSetCandidate
+          ? _value.activeSetCandidate
+          : activeSetCandidate // ignore: cast_nullable_to_non_nullable
+              as bool,
+      sdpForDescription: freezed == sdpForDescription
+          ? _value.sdpForDescription
+          : sdpForDescription // ignore: cast_nullable_to_non_nullable
+              as String?,
+      sdpForSetCandidate: freezed == sdpForSetCandidate
+          ? _value.sdpForSetCandidate
+          : sdpForSetCandidate // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -936,7 +1210,12 @@ class __$$_HomeStateCopyWithImpl<$Res>
 class _$_HomeState implements _HomeState {
   const _$_HomeState(
       {this.localStatus = LocalStatus.initial,
-      this.remoteStatus = RemoteStatus.initial});
+      this.remoteStatus = RemoteStatus.initial,
+      this.activeAnswer = false,
+      this.activeSetDescription = false,
+      this.activeSetCandidate = false,
+      this.sdpForDescription,
+      this.sdpForSetCandidate});
 
   @override
   @JsonKey()
@@ -944,10 +1223,23 @@ class _$_HomeState implements _HomeState {
   @override
   @JsonKey()
   final RemoteStatus remoteStatus;
+  @override
+  @JsonKey()
+  final bool activeAnswer;
+  @override
+  @JsonKey()
+  final bool activeSetDescription;
+  @override
+  @JsonKey()
+  final bool activeSetCandidate;
+  @override
+  final String? sdpForDescription;
+  @override
+  final String? sdpForSetCandidate;
 
   @override
   String toString() {
-    return 'HomeState(localStatus: $localStatus, remoteStatus: $remoteStatus)';
+    return 'HomeState(localStatus: $localStatus, remoteStatus: $remoteStatus, activeAnswer: $activeAnswer, activeSetDescription: $activeSetDescription, activeSetCandidate: $activeSetCandidate, sdpForDescription: $sdpForDescription, sdpForSetCandidate: $sdpForSetCandidate)';
   }
 
   @override
@@ -958,11 +1250,29 @@ class _$_HomeState implements _HomeState {
             (identical(other.localStatus, localStatus) ||
                 other.localStatus == localStatus) &&
             (identical(other.remoteStatus, remoteStatus) ||
-                other.remoteStatus == remoteStatus));
+                other.remoteStatus == remoteStatus) &&
+            (identical(other.activeAnswer, activeAnswer) ||
+                other.activeAnswer == activeAnswer) &&
+            (identical(other.activeSetDescription, activeSetDescription) ||
+                other.activeSetDescription == activeSetDescription) &&
+            (identical(other.activeSetCandidate, activeSetCandidate) ||
+                other.activeSetCandidate == activeSetCandidate) &&
+            (identical(other.sdpForDescription, sdpForDescription) ||
+                other.sdpForDescription == sdpForDescription) &&
+            (identical(other.sdpForSetCandidate, sdpForSetCandidate) ||
+                other.sdpForSetCandidate == sdpForSetCandidate));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, localStatus, remoteStatus);
+  int get hashCode => Object.hash(
+      runtimeType,
+      localStatus,
+      remoteStatus,
+      activeAnswer,
+      activeSetDescription,
+      activeSetCandidate,
+      sdpForDescription,
+      sdpForSetCandidate);
 
   @JsonKey(ignore: true)
   @override
@@ -974,12 +1284,27 @@ class _$_HomeState implements _HomeState {
 abstract class _HomeState implements HomeState {
   const factory _HomeState(
       {final LocalStatus localStatus,
-      final RemoteStatus remoteStatus}) = _$_HomeState;
+      final RemoteStatus remoteStatus,
+      final bool activeAnswer,
+      final bool activeSetDescription,
+      final bool activeSetCandidate,
+      final String? sdpForDescription,
+      final String? sdpForSetCandidate}) = _$_HomeState;
 
   @override
   LocalStatus get localStatus;
   @override
   RemoteStatus get remoteStatus;
+  @override
+  bool get activeAnswer;
+  @override
+  bool get activeSetDescription;
+  @override
+  bool get activeSetCandidate;
+  @override
+  String? get sdpForDescription;
+  @override
+  String? get sdpForSetCandidate;
   @override
   @JsonKey(ignore: true)
   _$$_HomeStateCopyWith<_$_HomeState> get copyWith =>

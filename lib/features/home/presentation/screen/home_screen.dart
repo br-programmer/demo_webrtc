@@ -44,29 +44,38 @@ class _Buttons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<HomeBloc>();
-    return Wrap(
-      // mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ElevatedButton(
-          onPressed: () => bloc.add(const HomeEvent.onOffer()),
-          child: const Text('Offer'),
-        ),
-        const SizedBox(width: 10),
-        ElevatedButton(
-          onPressed: () => bloc.add(const HomeEvent.onAnswer()),
-          child: const Text('Answer'),
-        ),
-        const SizedBox(width: 10),
-        ElevatedButton(
-          onPressed: () => bloc.add(const HomeEvent.onDescription()),
-          child: const Text('Set Description'),
-        ),
-        const SizedBox(width: 10),
-        ElevatedButton(
-          onPressed: () => bloc.add(const HomeEvent.onCandidate()),
-          child: const Text('Set Candidate'),
-        ),
-      ],
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        return Wrap(
+          children: [
+            ElevatedButton(
+              onPressed: () => bloc.add(const HomeEvent.onOffer()),
+              child: const Text('Offer'),
+            ),
+            const SizedBox(width: 10),
+            ElevatedButton(
+              onPressed: state.activeAnswer
+                  ? () => bloc.add(const HomeEvent.onAnswer())
+                  : null,
+              child: const Text('Answer'),
+            ),
+            const SizedBox(width: 10),
+            ElevatedButton(
+              onPressed: state.activeSetDescription
+                  ? () => bloc.add(const HomeEvent.onDescription())
+                  : null,
+              child: const Text('Set Description'),
+            ),
+            const SizedBox(width: 10),
+            ElevatedButton(
+              onPressed: state.activeSetCandidate
+                  ? () => bloc.add(const HomeEvent.onCandidate())
+                  : null,
+              child: const Text('Set Candidate'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
