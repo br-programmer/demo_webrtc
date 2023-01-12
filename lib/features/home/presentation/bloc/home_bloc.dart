@@ -125,7 +125,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       await _repository.setRemoteDescription(
         state.sdpForDescription ?? state.sdpForSetCandidate!,
       );
-      emit(state.copyWith(activeAnswer: true));
+      // emit(state.copyWith(activeAnswer: true));
     } catch (_) {
       print(_);
     }
@@ -148,7 +148,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) {
     final state = this.state.copyWith(
-          // activeAnswer: true,
+          activeAnswer: true,
           activeSetCandidate: true,
           activeSetDescription: true,
           sdpForDescription: event.sdp,
