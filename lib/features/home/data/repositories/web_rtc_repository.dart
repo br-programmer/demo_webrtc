@@ -1,7 +1,6 @@
 // ignore_for_file: use_setters_to_change_properties, use_late_for_private_fields_and_variables, inference_failure_on_collection_literal
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:demo_webrtc/core/core.dart';
@@ -159,7 +158,6 @@ class WebRtcRepository implements IWebRTCRepository {
       };
 
   void _onIceCandidate(RTCIceCandidate candidate) {
-    sendSdp(json.encode(candidate.toMap()));
     log('candidate::::${candidate.candidate}');
     log('sdpMid::::${candidate.sdpMid}');
     log('sdpMLineIndex::::${candidate.sdpMLineIndex}');
@@ -223,7 +221,7 @@ class WebRtcRepository implements IWebRTCRepository {
   @override
   Future<void> addCandidate(String value) async {
     // final session = await jsonDecode(value);
-    final session = json.decode(value);
+    final session = parse(value);
     log((session['candidate'] as String?) ?? '');
     final candidate = RTCIceCandidate(
       session['candidate'] as String?,

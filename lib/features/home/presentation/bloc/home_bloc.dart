@@ -113,8 +113,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   Future<void> _answerToState(_, Emitter<HomeState> emit) async {
     try {
-      await _repository.createAnswer();
-      // await _repository.sendSdp(session);
+      final session = await _repository.createAnswer();
+      await _repository.sendSdp(session);
     } catch (_) {
       print(_);
     }
