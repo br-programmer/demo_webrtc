@@ -1,6 +1,7 @@
 // ignore_for_file: use_setters_to_change_properties, use_late_for_private_fields_and_variables, inference_failure_on_collection_literal
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:demo_webrtc/core/core.dart';
@@ -49,10 +50,13 @@ class WebRtcRepository implements IWebRTCRepository {
   @override
   Future<void> sendSdp(String value) async {
     try {
+      if (!_connection!.state!.connected) {
+        await _connection!.start();
+      }
       await _connection?.invoke(
         'Send',
         args: [
-          '52A0C3A5-F2B2-4877-A184-08DAF413495A',
+          '5ba50b4d-5c84-46f6-4cbc-08dae1f6c3c9',
           value,
         ],
       );
@@ -121,7 +125,8 @@ class WebRtcRepository implements IWebRTCRepository {
         'audio': true,
         'video': {'facingMode': 'user'}
       };
-      _localStream = await navigator.mediaDevices.getUserMedia(mediaConstraints);
+      _localStream =
+          await navigator.mediaDevices.getUserMedia(mediaConstraints);
       _localVideoRenderer.srcObject = _localStream;
       _addToStream(LocalAudioTracks(_localStream!.getAudioTracks()));
       _addToStream(LocalVideoTracks(_localStream!.getVideoTracks()));
@@ -154,13 +159,14 @@ class WebRtcRepository implements IWebRTCRepository {
       };
 
   void _onIceCandidate(RTCIceCandidate candidate) {
+    sendSdp(json.encode(candidate.toMap()));
     log('candidate::::${candidate.candidate}');
     log('sdpMid::::${candidate.sdpMid}');
     log('sdpMLineIndex::::${candidate.sdpMLineIndex}');
   }
 
   void _onIceConnectionState(RTCIceConnectionState state) {
-    log('state:::$state');
+    log('onIceConnectionState:::$state');
   }
 
   void _onAddStream(MediaStream stream) {
@@ -192,7 +198,7 @@ class WebRtcRepository implements IWebRTCRepository {
 
   @override
   Future<String> createAnswer() async {
-    final description = await _peerConnection!.createAnswer(_constraints);
+    final description = await _peerConnection!.createAnswer();
     await _peerConnection!.setLocalDescription(description);
     return _session(description);
   }
@@ -204,6 +210,7 @@ class WebRtcRepository implements IWebRTCRepository {
     // final session2 = parse(value);
     // print('$session2 session2');
     // final sdp = write(parse(value), null);
+
     final description = RTCSessionDescription(
       value,
       _offer ? 'answer' : 'offer',
