@@ -223,7 +223,7 @@ class WebRtcRepository implements IWebRTCRepository {
   @override
   Future<void> addCandidate(String value) async {
     // final session = await jsonDecode(value);
-    final session = parse(value);
+    final session = json.decode(value);
     log((session['candidate'] as String?) ?? '');
     final candidate = RTCIceCandidate(
       session['candidate'] as String?,
